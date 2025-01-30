@@ -14,31 +14,80 @@
             margin: 0;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             background: linear-gradient(135deg, red, orange, yellow, green, blue, indigo, violet);
             font-family: Arial, sans-serif;
-            overflow: hidden; /* Para garantir que confetes não saiam da tela */
+            overflow: hidden;
+            position: relative;
         }
 
         .clock-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 500px;
+            width: 90%;
+            max-width: 500px;
             height: 150px;
             border-radius: 30px;
             background-color: black;
             border: 10px solid gray;
             box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
             position: relative;
+            padding: 10px;
+            box-sizing: border-box;
         }
 
         .clock {
-            font-size: 38px;
+            font-size: 28px;
             color: white;
             text-align: center;
             font-family: 'DSDIGI', sans-serif;
+        }
+
+        #special-button {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: black;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        a.area-link {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .code-input-container {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 10px;
+            background-color: gray;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .code-input-container input {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.5);
+            border: none;
+            outline: none;
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        .error-message {
+            color: red;
         }
     </style>
 </head>
@@ -46,12 +95,19 @@
     <div class="clock-container">
         <div class="clock" id="countdown"></div>
     </div>
+    <button id="special-button" onclick="window.location.href='carta.html';">Acessar Carta</button>
+    
+    <a class="area-link" id="area-link">Área do aniversariante</a>
+
+    <div class="code-input-container" id="code-input-container">
+        <input type="text" id="code-input" placeholder="Digite o código">
+        <div id="error-message" class="error-message"></div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
         let confettiActive = false;
 
-        // Função para disparar confetes por onde o mouse passa
         function fireConfetti(x, y) {
             confetti({
                 particleCount: 5,
@@ -62,12 +118,10 @@
             });
         }
 
-        // Função para iniciar os confetes quando o contador chega a zero
         function startConfettiCycle() {
             confettiActive = true;
         }
 
-        // Função de contagem regressiva
         function updateCountdown() {
             const targetDate = new Date("2025-01-31T00:00:00");
             const now = new Date();
@@ -76,6 +130,7 @@
             if (difference <= 0) {
                 document.getElementById("countdown").textContent = "Chegou o dia!";
                 startConfettiCycle();
+                document.getElementById("special-button").style.display = "block";
                 return;
             }
 
@@ -88,18 +143,41 @@
                 `${days} dias, ${hours} horas, ${minutes} minutos, ${seconds} segundos`;
         }
 
-        // Adiciona o evento de movimento do mouse para gerar confetes na tela inteira
         document.body.addEventListener('mousemove', function(event) {
             if (confettiActive) {
-                const x = event.clientX / window.innerWidth; // Normaliza a posição do mouse
-                const y = event.clientY / window.innerHeight; // Normaliza a posição do mouse
-                fireConfetti(x, y); // Dispara confetes na posição do mouse
+                const x = event.clientX / window.innerWidth;
+                const y = event.clientY / window.innerHeight;
+                fireConfetti(x, y);
             }
         });
 
-        // Inicializa a contagem regressiva
         updateCountdown();
         setInterval(updateCountdown, 1000);
+
+        const link = document.getElementById("area-link");
+        const inputContainer = document.getElementById("code-input-container");
+        const codeInput = document.getElementById("code-input");
+        const errorMessage = document.getElementById("error-message");
+
+        link.addEventListener("click", () => {
+            inputContainer.style.display = inputContainer.style.display === "none" ? "block" : "none";
+        });
+
+        codeInput.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                const input = codeInput.value.trim().toLowerCase();
+                const correctCode = "m3ul4nch3";
+                if (input === correctCode) {
+                    window.location.href = "https://wa.me/+5511961888239/?text=Ol%C3%A1,%20ganhei%20meu%20lanche,%20como%20fa%C3%A7o%20para%20resgatar?";
+                } else {
+                    errorMessage.textContent = "Entrada Inválida!";
+                    setTimeout(() => {
+                        errorMessage.textContent = "";
+                        codeInput.value = "";
+                    }, 3000);
+                }
+            }
+        });
     </script>
 </body>
 </html>
