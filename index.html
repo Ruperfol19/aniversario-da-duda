@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duda Birthday!</title>
+    <style>
+        @font-face {
+            font-family: 'DSDIGI';
+            src: local('DSDIGI'), url('./DSDIGI.woff') format('woff');
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, red, orange, yellow, green, blue, indigo, violet);
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Para garantir que confetes não saiam da tela */
+        }
+
+        .clock-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 500px;
+            height: 150px;
+            border-radius: 30px;
+            background-color: black;
+            border: 10px solid gray;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .clock {
+            font-size: 28px;
+            color: white;
+            text-align: center;
+            font-family: 'DSDIGI', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock-container">
+        <div class="clock" id="countdown"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        let confettiActive = false;
+
+        // Função para disparar confetes por onde o mouse passa
+        function fireConfetti(x, y) {
+            confetti({
+                particleCount: 5,
+                spread: 30,
+                angle: Math.random() * 360,
+                origin: { x, y },
+                particleSize: 4
+            });
+        }
+
+        // Função para iniciar os confetes quando o contador chega a zero
+        function startConfettiCycle() {
+            confettiActive = true;
+        }
+
+        // Função de contagem regressiva
+        function updateCountdown() {
+            const targetDate = new Date("2025-01-31T00:00:00");
+            const now = new Date();
+            const difference = targetDate - now;
+
+            if (difference <= 0) {
+                document.getElementById("countdown").textContent = "Chegou o dia!";
+                startConfettiCycle();
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").textContent = 
+                `${days} dias, ${hours} horas, ${minutes} minutos, ${seconds} segundos`;
+        }
+
+        // Adiciona o evento de movimento do mouse para gerar confetes na tela inteira
+        document.body.addEventListener('mousemove', function(event) {
+            if (confettiActive) {
+                const x = event.clientX / window.innerWidth; // Normaliza a posição do mouse
+                const y = event.clientY / window.innerHeight; // Normaliza a posição do mouse
+                fireConfetti(x, y); // Dispara confetes na posição do mouse
+            }
+        });
+
+        // Inicializa a contagem regressiva
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
