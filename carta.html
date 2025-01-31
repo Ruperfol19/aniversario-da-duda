@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background: linear-gradient(135deg, red, orange, yellow, green, blue, indigo, violet);
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+        }
+
+        .content-container {
+            background-color: white;
+            width: calc(100% - 300px);
+            max-width: 900px;
+            padding: 20px;
+            margin: 100px auto;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            color: black;
+        }
+
+        p {
+            color: #333;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+        }
+
+        /* Comente aqui: Adicione o formato correto da imagem ao nome do arquivo "dudaege." abaixo, como .jpg, .png, ou .webp */
+        
+        @media screen and (max-width: 768px) {
+            .content-container {
+                width: calc(100% - 50px);
+                margin: 50px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <audio id="background-audio" loop>
+        <source src="musica.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+    </audio>
+    
+    <script>
+        window.onload = function () {
+            const audio = document.getElementById('background-audio');
+            audio.play().catch(() => {
+                console.log("Reprodução automática bloqueada.");
+            });
+        };
+    </script>
+    
+    <div class="overlay"></div>
+    <div class="content-container">
+        <h1>Carta de Anivers&aacute;rio!!!</h1>
+        <img src="dudaege.jpeg" alt="Dudinha e Ge">
+        <p>Bom, o que falar nesta data tão especial? Há 25 anos, nascia uma grande estrela que iria brilhar muito em nossas vidas. Seu nome? Maria Eduarda!</p>
+        <p>Um simples e singelo parabéns nunca será o essencial, pois, precisamos falar tudo sobre conhecer esse pessoinha especial! Te conheci pelo processo seletivo da Elo, e de primeira vista, eu olhei e pensei "preciso ser amigo dela, olha como ela se veste, amei o estilo dela". Do nosso grupo do processo, você foi uma das poucas que realmente conversou, me ouviu, e realmente passou uma visão de acolhimento, isso me encantou, uma pessoa maravilhosa!
+        </p>
+        <p>Logo após isso, ficamos sabendo que tínhamos passado, e a gente se recebeu com a maior felicidade na Elo kakakakaka, foi incrível esse dia!!! Apartir dai, eu vi que nossa amizade foi surgindo e criando a conexão divah. Fora as vezes você ser meio "nervosa" é super carinhosa, conversa sobre tudo, simplesmente incrível! 
+        </p>
+        <p>Esse dia simboliza mais um marco pra sua vida, nem imagino quantas pessoas perderam a oportunidade de ter A Maria Eduarda em suas vidas, e sim bitchs, eu tenho a Duda em minha life! 
+        </p>
+        <p>Gosto muito de você Dudinha, você ilumina os dias com as conversas, ou só pela união com os friendos XD. Eu espero de coração que esse dia seja muito especial pra você, afinal, não é todo dia que você vê um anjo fazendo aniversario! Sou muito grato por tudo, e pelo que a gente vai desenvolver, sair (esperando você chamar para os roles né) almoços, zueiras, etc etc.
+        </p>
+        <p>Não sou muito com palavras, mas é de coração essas minhas palavras, por tudo que você é de bom em nossas vidas.
+            Um beijão, Feliz Aniversario de 25 Anos, que venham muitos mais para que eu possa incrementar mais vivencias fodas no texto novamente!
+            </p>
+    </div>
+</body>
+</html>
